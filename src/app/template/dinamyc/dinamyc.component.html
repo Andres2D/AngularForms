@@ -1,0 +1,73 @@
+<h2>Template: <small>Dinamycs</small></h2>
+<hr>
+
+<form (ngSubmit)="Save()" #myForm="ngForm" autocomplete="off">
+    <!-- Name -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-9">
+            <input 
+            class="form-control" 
+            type="text"
+            [ngModel]="person.name"
+            name="name" 
+            required
+            placeholder="Name">
+            <span 
+            class="form-text text-danger"
+            *ngIf="myForm.controls.name?.touched && myForm.controls.name?.errors">
+            Require field</span>
+        </div>
+    </div>
+
+    <!-- Add favourite-->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-9">
+            <div class="input-group">
+                <input class="form-control"
+                       placeholder="Add favourite"
+                       [(ngModel)]="newGame"
+                       name="newGame"
+                       (keyup.enter)="AddGame()">
+                <button class="btn btn-outline-success"
+                        type="button" (click)="AddGame()">
+                    Add
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Favourite list -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Favourites</label>
+        <div class="col-sm-9">
+            <div  *ngFor="let game of person.favourites; let i = index" class="input-group mb-1">
+                <input
+                [(ngModel)]="game.name"
+                name="favourite_{{i}}"
+                required
+                class="form-control">
+                <button class="btn btn-outline-danger"
+                    type="button" (click)="Delete()">
+                Delete
+            </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <div class="col-sm-12">
+            <button 
+            type="button" 
+            class="btn btn-primary float-end" 
+            [disabled]="myForm.invalid" 
+            (click)="Save()">
+                Save
+            </button>
+        </div>
+    </div>
+</form>
+
+<span>Person</span>
+<pre>{{person|json}}</pre>
