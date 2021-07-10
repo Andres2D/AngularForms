@@ -1,0 +1,72 @@
+<h1 class="mt-5">Nested selectors</h1>
+<hr>
+
+<form [formGroup]="myForm" (submit)="Save()">
+
+    <!-- Region -->
+    <div class="row mb-3">
+        <div class="col">
+            <label class="form-label">Continent</label>
+            <select class="form-control"
+                    formControlName="region">
+                <option value=""> -- Select continent ---</option>
+                <option *ngFor="let region of regions" 
+                    [value]="region|lowercase">
+                    {{region}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Countries -->
+    <div class="row mb-3" *ngIf="countries.length !== 0">
+        <div class="col">
+            <label class="form-label">Country</label>
+            <select class="form-control"
+                    formControlName="country">
+                <option value=""> -- Select country ---</option>
+                <option *ngFor="let country of countries" 
+                    [value]="country.alpha3Code | lowercase">
+                    {{country.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Border -->
+    <div class="row mb-3" *ngIf="borders.length !== 0">
+        <div class="col">
+            <label class="form-label">Border</label>
+            <select class="form-control"
+                    formControlName="border">
+                <option value=""> -- Select border ---</option>
+                <option *ngFor="let border of borders" 
+                    [value]="border.alpha3Code|lowercase">
+                    {{border.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="loading">
+        <div class="col">
+            <div class="alert alert-primary">
+                Loading...
+            </div>
+        </div>
+    </div>  
+
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary float-end"
+                    type="submit">
+                    Select
+            </button>
+        </div>
+    </div>
+</form>
+
+<br><br>
+<h3>Form</h3>
+<pre>Valid: {{myForm.valid}}</pre>
+<pre>{{myForm.value | json}}</pre>
