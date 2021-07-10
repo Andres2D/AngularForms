@@ -1,0 +1,103 @@
+<h2>Reactive: Validations</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+        <form (ngSubmit)="SubmitForm()" [formGroup]="myForm" autocomplete="off">
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-9">
+                    <input type="text"
+                           class="form-control"
+                           formControlName="name"
+                           placeholder="Name">
+                    <span *ngIf="InvalidField('name')" class="form-text text-danger">
+                        Field isn´t name last name format
+                    </span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-9">
+                    <input type="email"
+                           class="form-control"
+                           formControlName="email"
+                           placeholder="User Email">
+                    <span *ngIf="InvalidField('email')" class="form-text text-danger">
+                        {{emailErrorMsg}}
+                    </span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Username</label>
+                <div class="col-sm-9">
+                    <input type="text"
+                           class="form-control"
+                           formControlName="userName"
+                           placeholder="Username">
+                    <span *ngIf="InvalidField('userName')" class="form-text text-danger">
+                        The username can´t be strider
+                    </span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Password</label>
+                <div class="col-sm-9">
+                    <input type="password"
+                           class="form-control"
+                           formControlName="password"
+                           placeholder="Password">
+                    <span *ngIf="InvalidField('password')" class="form-text text-danger">
+                        The password must be bigger than 6 chararcters
+                    </span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Confirm</label>
+                <div class="col-sm-9">
+                    <input type="password"
+                           class="form-control"
+                           formControlName="confirmPassword"
+                           placeholder="Password confirm">
+                    <span *ngIf="InvalidField('confirmPassword')" class="form-text text-danger">
+                        The passwords must be equals
+                    </span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button type="submit" [disabled]="myForm.pending" class="btn btn-primary float-end">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<h2>Form valid: {{myForm.valid}}</h2>
+
+<h2>Form status: {{myForm.status}}</h2>
+
+<h2>Form erros</h2>
+<pre>{{myForm.errors | json}}</pre>
+
+<h5>Name</h5>
+<pre>{{myForm.controls.name.errors | json}}</pre>
+
+<h5>Email</h5>
+<pre>{{myForm.controls.email.errors | json}}</pre>
+
+<h5>Username</h5>
+<pre>{{myForm.controls.userName.errors | json}}</pre>
+
+<h5>Password</h5>
+<pre>{{myForm.controls.password.errors | json}}</pre>
+
+<h5>Confirm Password</h5>
+<pre>{{myForm.controls.confirmPassword.errors | json}}</pre>
